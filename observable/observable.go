@@ -330,7 +330,7 @@ func (o Observable) Zip(ob Observable, obs ...Observable) Observable {
 
 			index := 0
 			for _, obItem := range obs {
-				v, ok := <- obItem
+				v, ok := <-obItem
 				if ok {
 					switch v.(type) {
 					case error:
@@ -461,7 +461,9 @@ func Just(item interface{}, items ...interface{}) Observable {
 
 	go func() {
 		for _, item := range items {
-			source <- item
+			if item != nil {
+				source <- item
+			}
 		}
 		close(source)
 	}()
@@ -510,7 +512,7 @@ func ZipAll(obs ...Observable) Observable {
 
 			index := 0
 			for _, obItem := range obs {
-				v, ok := <- obItem
+				v, ok := <-obItem
 				if ok {
 					switch v.(type) {
 					case error:
@@ -536,4 +538,3 @@ func ZipAll(obs ...Observable) Observable {
 
 	return Observable(out)
 }
-
