@@ -4,7 +4,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/reactivex/rxgo"
 	"github.com/reactivex/rxgo/errors"
 	"github.com/reactivex/rxgo/fx"
 	"github.com/reactivex/rxgo/handlers"
@@ -461,7 +460,9 @@ func Just(item interface{}, items ...interface{}) Observable {
 
 	go func() {
 		for _, item := range items {
-			source <- item
+			if item != nil {
+				source <- item
+			}
 		}
 		close(source)
 	}()
