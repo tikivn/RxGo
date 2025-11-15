@@ -4,6 +4,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/reactivex/rxgo"
 	"github.com/reactivex/rxgo/errors"
 	"github.com/reactivex/rxgo/fx"
 	"github.com/reactivex/rxgo/handlers"
@@ -329,7 +330,7 @@ func (o Observable) Zip(ob Observable, obs ...Observable) Observable {
 
 			index := 0
 			for _, obItem := range obs {
-				v, ok := <- obItem
+				v, ok := <-obItem
 				if ok {
 					switch v.(type) {
 					case error:
@@ -511,7 +512,7 @@ func ZipAll(obs ...Observable) Observable {
 
 			index := 0
 			for _, obItem := range obs {
-				v, ok := <- obItem
+				v, ok := <-obItem
 				if ok {
 					switch v.(type) {
 					case error:
@@ -537,4 +538,3 @@ func ZipAll(obs ...Observable) Observable {
 
 	return Observable(out)
 }
-
