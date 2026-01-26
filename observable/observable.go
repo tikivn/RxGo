@@ -480,7 +480,7 @@ func Start(f fx.EmittableFunc, fs ...fx.EmittableFunc) Observable {
 		fs = []fx.EmittableFunc{f}
 	}
 
-	source := make(chan interface{})
+	source := make(chan interface{}, len(fs))
 
 	var wg sync.WaitGroup
 	for _, f := range fs {
