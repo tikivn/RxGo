@@ -461,9 +461,7 @@ func Just(item interface{}, items ...interface{}) Observable {
 
 	go func() {
 		for _, item := range items {
-			if item != nil {
-				source <- item
-			}
+			source <- item
 		}
 		close(source)
 	}()

@@ -34,3 +34,7 @@ node_modules
 # IntelliJ
 .idea
 *.iml
+.vscode
+
+go.mod
+go.sum
